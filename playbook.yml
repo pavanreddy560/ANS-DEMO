@@ -33,4 +33,8 @@
       src: /home/bd/Desktop/jenkins/spring-boot-thymeleaf/target/spring-boot-thymeleaf-2.0.0.war
       dest: /usr/local/apache-tomcat-9.0.65/webapps
       
+  - name: Starting tomcat server
+    shell: nohup /usr/local/apache-tomcat-9.0.65/bin/startup.sh &
+    become: true
+      
       
