@@ -4,7 +4,7 @@ pipeline{
 	stages{
 		stage('Fetch code from GitHub'){
 		  steps{
-		  	git url: "https://github.com/BharadwajAyinapurapu/Thymeleaf-Project-Spring-Boot.git"
+		  	git url: "https://github.com/BharadwajAyinapurapu/Spring-Boot-Thymeleaf.git"
 		  }
 		}
 		
@@ -12,29 +12,24 @@ pipeline{
 		  steps{
 		  	sh 'mvn clean test'
 		  }
-		  post{
-                	always{
-                    		junit '**/target/surefire-reports/TEST-*.xml'
-                	}
-            	  }
 		}
 		
 		stage('Package'){
-            	  steps{
-                	sh 'mvn install'
-            	  }
-                 post{
-                	success{
-                       	archiveArtifacts 'target/*.jar'
-                	}
-            	  }
-        	}
+            steps{
+            	sh 'mvn install'
+            }
+            post{
+                success{
+                   	archiveArtifacts 'target/*.war'
+            	}
+            }
+		}
 		
-		//stage('Tomcat deploy'){
-		//  steps{
-		//  	sh 'mv 
-		//  }
-		//}
+		stage('Tomcat deploy'){
+		    steps{
+		        ansiblePlaybook credentialsId: 'Tomcat-deploy', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'    
+		    }
+		}
 		
 	}
 }
