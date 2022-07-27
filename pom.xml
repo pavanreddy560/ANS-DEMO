@@ -124,14 +124,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <!--<groupId>org.codehaus.sonar</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.0.2</version>-->
+                <version>3.0.2</version>
 		<groupId>org.sonarsource.scanner.maven</groupId>
         	<artifactId>sonar-maven-plugin</artifactId>
         	<version>4.7.0.2747</version>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
