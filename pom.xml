@@ -96,7 +96,11 @@
             <artifactId>webjars-locator</artifactId>
             <version>${webjars.webjars-locator.version}</version>
         </dependency>
-
+	<dependency>
+		<groupId>org.sonarsource.scanner.maven</groupId>
+		<artifactId>sonar-maven-plugin</artifactId>
+		<!--sion>3.2</version>-->
+	</dependency>
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -110,11 +114,11 @@
             <scope>test</scope>
         </dependency>
         <!-- Provided (for embedded war support) -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <!-- Package as an executable jar -->
