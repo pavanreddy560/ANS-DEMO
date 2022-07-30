@@ -11,42 +11,48 @@ pipeline{
 		  }
 		}
 		
-		/*stage('Compile and Test'){
+		stage('Compile and Test'){
 		  steps{
-		  	//sh 'mvn clean test'
+		  	sh 'mvn clean test'
 		  }
-		}*/
+		}
 		
 		stage('Package'){
-            steps{
-            	sh 'mvn install'
-            }
-            post{
-                success{
-                   	archiveArtifacts 'target/*.war'
-                   	sh 'java -version'
-                   	sh 'mvn -version'
-            	}
-            }
+            	  steps{
+            		sh 'mvn install'
+            	  }
+            	  post{
+                	success{
+                   		archiveArtifacts 'target/*.war'
+                   		sh 'java -version'
+                   		sh 'mvn -version'
+            		}
+                  }
 		}
 		
 		stage('Code Quality Check'){
 		    steps{
-			    withSonarQubeEnv(installationName: 'sonarqube-7.1'){
-		            sh 'mvn sonar:sonar'
+	    	    withSonarQubeEnv(installationName: 'sonarqube-7.1'){
+	    	        
+		            sh 'mvn sonar:sonar \
+		            -Dsonar.projectKey=Spring-Boot-Thymeleaf \
+                    	    -Dsonar.host.url=http://localhost:9000 \
+                            -Dsonar.login=fd33ee7091591b0f916c86700f2a700ea9cbfe21'
+
 		        }
 		    }
-	    }   
+	        }   
 	    
-	    stage('Publish to JFrog'){
+	    	stage('Publish to JFrog'){
  		    steps{
- 			    sh 'jf rt u --url http://192.168.56.102:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf'
+ 		        sh 'jf rt ping --url http://20.244.50.64:8082/artifactory/'
+ 			sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
  		    }	
- 	    }
+ 	    	}
 		
 		stage('Tomcat deploy'){
 		    steps{
-		        ansiblePlaybook credentialsId: 'Tomcat-deploy', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'    
+		        ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 		    }
 		}
 		
