@@ -36,7 +36,7 @@ pipeline{
 	    	        
 		            sh 'mvn sonar:sonar \
 		            -Dsonar.projectKey=Spring-Boot-Thymeleaf \
-                    	    -Dsonar.host.url=http://localhost:9000 \
+                    	    -Dsonar.host.url=http://20.244.33.251:9000 \
                             -Dsonar.login=fd33ee7091591b0f916c86700f2a700ea9cbfe21'
 
 		        }
