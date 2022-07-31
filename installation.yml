@@ -1,0 +1,22 @@
+---
+- name: playbook for Tomcat installation
+  hosts: all
+  become: true
+  become_user: root
+  
+  tasks:
+  - name: Install Java
+    apt:
+      name: openjdk-11-jdk
+      state: latest
+   
+  - name: Install Tomcat from apache tomcat website
+    get_url: 
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz
+      dest: usr/local
+      
+  - name: Unarchive tomcat package
+    unarchive:
+      src: /usr/local/apache-tomcat-9.0.65.tar.gz
+      dest: /usr/local
+      remote_src: yes
