@@ -5,22 +5,6 @@
   become_user: root
  
   tasks:
-          #  - name: Install java
-          #    apt: 
-          #      name: openjdk-11-jdk
-          #      state: present
-      
-          #  - name: Install Tomcat from apache tomcat website
-          #    get_url:
-            #      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz
-            #      dest: /usr/local
-  
-          #  - name: Unarchive tomcat package
-          #    unarchive: 
-          #      src: /usr/local/apache-tomcat-9.0.65.tar.gz
-      #      dest: /usr/local
-      #      remote_src: yes
-          
   - name: Starting tomcat server
     shell: nohup /usr/local/apache-tomcat-9.0.65/bin/startup.sh &
     become: true
@@ -28,14 +12,9 @@
 
   - name: Copying the war file to tomcat server location
     copy:
-            #src: /home/bd/Desktop/jenkins/spring-boot-web-application/target/student-services-security-0.0.1-SNAPSHOT.war
-            # src: /home/bd/Desktop/jenkins/rock-paper-scissors/target/roshambo-1.0-SNAPSHOT.war
-            #src: /home/bd/Desktop/jenkins/spring-boot-thymeleaf/target/spring-boot-thymeleaf-2.0.0.war
       src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/spring-boot-thymeleaf-2.0.0.war 
       dest: /usr/local/apache-tomcat-9.0.65/webapps
       
   - name: Starting tomcat server
     shell: nohup /usr/local/apache-tomcat-9.0.65/bin/startup.sh &
     become: true
-      
-      
