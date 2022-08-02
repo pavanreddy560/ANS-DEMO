@@ -1,4 +1,4 @@
-spring Boot 2 and Thymeleaf with Maven
+Spring Boot 2 and Thymeleaf with Maven
 ======================================
 
 - Spring Boot 2
