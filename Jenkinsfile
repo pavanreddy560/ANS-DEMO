@@ -2,6 +2,7 @@ pipeline{
 	agent any
 	environment{
 	    ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
+	    DOCKER_ACCESS_TOKEN = credentials('docker-access-token')
 	}
 	
 	stages{
@@ -18,16 +19,16 @@ pipeline{
 		}
 		
 		stage('Package'){
-            	  steps{
-            		sh 'mvn install'
-            	  }
-            	  post{
-                	success{
-                   		archiveArtifacts 'target/*.war'
-                   		sh 'java -version'
-                   		sh 'mvn -version'
-            		}
-                  }
+    	  steps{
+    		sh 'mvn install'
+    	  }
+    	  post{
+        	success{
+           		archiveArtifacts 'target/*.war'
+           		sh 'java -version'
+           		sh 'mvn -version'
+    		}
+          }
 		}
 		
 		stage('Code Quality Check'){
@@ -41,14 +42,22 @@ pipeline{
 
 		        }
 		    }
-	        }   
+	    }   
 	    
-	    	stage('Publish to JFrog'){
+	    stage('Publish to JFrog'){
  		    steps{
  		        sh 'jf rt ping --url http://20.244.50.64:8082/artifactory/'
- 			sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
+ 			    sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
  		    }	
- 	    	}
+ 	    }
+ 	    
+ 	    stage('Docker Stage'){
+ 	        steps{
+ 	            sh ' docker build -t bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER .'
+ 	            sh ' echo $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
+ 	            sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER'
+ 	        }
+ 	    }
 		
 		stage('Tomcat deploy'){
 		    steps{
@@ -56,5 +65,11 @@ pipeline{
 		    }
 		}
 		
+	}
+	
+	post{
+	    always{
+	        sh 'docker logout'
+	    }
 	}
 }
