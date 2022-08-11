@@ -17,7 +17,7 @@ spec:
          spec:
                 containers: 
                  -  name: myapp-container
-                    image: bharadwajayinapurapu/test-pipeline
+                    image: bharadwajayinapurapu/spring-boot-thymeleaf
                     ports: 
                      -  containerPort: 8080
 
