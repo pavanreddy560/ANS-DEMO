@@ -33,7 +33,6 @@ spec:
      selector:
          app: myapp-spring-boot
      type: LoadBalancer
-     loadBalancerIP: 20.219.21.121
      ports:
       -  port: 80
          targetPort: 8080
