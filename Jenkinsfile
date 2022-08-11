@@ -89,6 +89,8 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
+		    sh 'kubectl delete deployment myapp-deployment'
+	            sh 'kubectl delete service myapp-service'
 		    script{
 		        kubernetesDeploy(
 			     configs: 'YAML.yml',
