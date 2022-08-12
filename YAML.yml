@@ -30,6 +30,7 @@ metadata:
          app: myapp
 
 spec:
+     loadBalancerIP: 20.207.84.96
      selector:
          app: myapp-spring-boot
      type: LoadBalancer
