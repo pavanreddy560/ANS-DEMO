@@ -7,6 +7,11 @@ metadata:
 
 spec:
      replicas: 2
+     strategy:
+         type: RollingUpdate
+         rollingUpdate:
+                maxSurge: 1
+                maxUnavailable: 0
      selector:
          matchLabels:
                 app: myapp-spring-boot
@@ -17,7 +22,7 @@ spec:
          spec:
                 containers: 
                  -  name: myapp-container
-                    image: bharadwajayinapurapu/spring-boot-thymeleaf:tagVersion
+                    image: bharadwajayinapurapu/spring-boot-thymeleaf:latest
                     ports: 
                      -  containerPort: 8080
 
