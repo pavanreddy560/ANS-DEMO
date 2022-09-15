@@ -44,22 +44,20 @@ pipeline{
                }
 	    }
 		
-// 	    stage('Code Quality Check'){
-// 		agent{
-// 		   label 'agent-1'
-// 		}
-// 		steps{
-// 	    	    withSonarQubeEnv(installationName: 'sonarqube-7.1'){
-// 			 sh 'mvn sonar:sonar \
-// 			 -Dsonar.projectKey=spring	 \
-// 			 -Dsonar.projectName=spring \
-// 			 -Dsonar.host.url=http://20.244.33.251:9000 \
-// 			 -Dsonar.login=9fe0b448d589e6dde9f405e50ed8448f012f09f5'
-// 		    }
-		    
-		    
-// 		}
-// 	    }   
+	    stage('Code Quality Check'){
+		agent{
+		   label 'agent-1'
+		}
+		steps{
+	    	    withSonarQubeEnv(installationName: 'sonarqube-7.1'){
+			 sh 'mvn sonar:sonar \
+			 -Dsonar.projectKey=spring	 \
+			 -Dsonar.projectName=spring \
+			 -Dsonar.host.url=http://20.244.33.251:9000 \
+			 -Dsonar.login=9fe0b448d589e6dde9f405e50ed8448f012f09f5'
+		    }   
+		}
+	    }   
 	    
 // 	    stage('Custom Quality Gate Check'){
 // 	        agent{
