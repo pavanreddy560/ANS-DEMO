@@ -91,11 +91,11 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
-		    //sh 'kubectl delete deployment myapp-deployment'
-	        //sh 'kubectl delete service myapp-service'
-	       sh 'echo $BUILD_NUMBER'
-	       sh 'chmod +x changeTag.sh'
-	       sh './changeTag.sh V.$BUILD_NUMBER'
+			//sh 'kubectl delete deployment myapp-deployment'
+	        	//sh 'kubectl delete service myapp-service'
+	            sh 'echo $BUILD_NUMBER'
+	            sh 'chmod +x changeTag.sh'
+	            sh './changeTag.sh V.$BUILD_NUMBER'
 		    script{
 		        kubernetesDeploy(
 			     configs: 'YAML.yml',
