@@ -104,6 +104,15 @@ pipeline{
 		    }
 	        }
 	    }
+		
+	    stage('Tomcat deploy'){
+		agent {
+		   label 'agent-1'
+		}
+		steps{
+		   ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
+		}
+	     }
 
 	}
 	
