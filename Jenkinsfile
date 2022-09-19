@@ -68,7 +68,7 @@ pipeline{
 	        }
 	    }*/
         
-        stage('Publish to JFrog'){
+	    stage('Publish to JFrog'){
 	       agent {
 		      label 'agent-1'
 	       }
@@ -76,9 +76,9 @@ pipeline{
  		   sh 'jf rt ping --url http://20.244.50.64:8082/artifactory/'
  		   sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
  	       }	
- 	}
+ 	    }
 		
-        stage('Docker Stage'){
+            stage('Docker Stage'){
  	        agent {
 		      label 'agent-1'
 		    }
@@ -86,8 +86,8 @@ pipeline{
  	            sh ' docker build -t bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER .'
  	            sh ' echo $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
  	            sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER'
-		        sh ' docker tag bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER bharadwajayinapurapu/spring-boot-thymeleaf:latest'
- 	            sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:latest'
+		    //sh ' docker tag bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER bharadwajayinapurapu/spring-boot-thymeleaf:latest'
+ 	            //sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:latest'
  	        }
  	        
  	    }
@@ -98,8 +98,8 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
-			//sh 'kubectl delete deployment myapp-deployment'
-	        	//sh 'kubectl delete service myapp-service'
+		    //sh 'kubectl delete deployment myapp-deployment'
+	            //sh 'kubectl delete service myapp-service'
 	            sh 'echo $BUILD_NUMBER'
 	            sh 'chmod +x changeTag.sh'
 	            sh './changeTag.sh V.$BUILD_NUMBER'
@@ -120,8 +120,7 @@ pipeline{
 		   ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 		}
 	     }
-
-	}
+	    }
 	
 	post{	
 	    always{
