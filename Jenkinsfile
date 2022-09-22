@@ -98,17 +98,20 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
-		    //sh 'kubectl delete deployment myapp-deployment'
-	            //sh 'kubectl delete service myapp-service'
+		    /*sh 'kubectl delete deployment myapp-deployment'
+	            sh 'kubectl delete service myapp-service'*/
 	            sh 'echo $BUILD_NUMBER'
 	            sh 'chmod +x changeTag.sh'
 	            sh './changeTag.sh V.$BUILD_NUMBER'
-		    script{
+		    sh 'kubectl apply -f YAML.yml'
+	            sh 'kubectl get deployment'
+	            sh 'kubectl get svc'
+		    /*script{
 		        kubernetesDeploy(
 			     configs: 'YAML.yml',
 			     kubeconfigId: 'K8S' 
 			)
-		    }
+		    }*/
 	        }
 	    }
 		
