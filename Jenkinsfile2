@@ -31,11 +31,11 @@ pipeline{
 				maven.mavenTest()
 				maven.mavenInstall()
 			}
-			post{
-				success{
-					archiveArtifacts 'target/*.war'
-					stash 'source'
-				}
+		}
+		post{
+			success{
+				archiveArtifacts 'target/*.war'
+				stash 'source'
 			}
 		}
 	    }
