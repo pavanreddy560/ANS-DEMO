@@ -89,6 +89,27 @@ pipeline{
 	           }
 	       }
 	   }
+	   
+	   stage('K8S Deploy'){
+	       agent{
+	           label 'agent-2'
+	       }
+	       steps{
+	           script{
+	               kubernetes.apply("YAML.yml")
+	               kubernetes.get("deployment")
+	               kubernetes.get("svc")
+	           }
+	            /*script{
+		            kubernetesDeploy(
+			            configs: 'YAML.yml',
+			            kubeconfigId: 'K8S' 
+			        )
+		        }*/
+	       }
+	   }
+	   
+	   
 	    
 	}
 }
