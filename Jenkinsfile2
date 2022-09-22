@@ -76,5 +76,19 @@ pipeline{
 	            }           
 	        }
 	    } 
+	    
+	    stage('Docker Stage'){
+	       agent{
+	           label 'agent-1'
+	       }
+	       steps{
+	           script{
+    	           docker.dockerBuild("bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER")
+    	           sh 'echo $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
+    	           docker.dockerPush("bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER")
+	           }
+	       }
+	   }
+	    
 	}
 }
