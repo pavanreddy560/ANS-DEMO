@@ -95,6 +95,8 @@ pipeline{
 	           label 'agent-2'
 	       }
 	       steps{
+	           sh 'chmod +x changeTag.sh'
+	           sh './changeTag.sh V.$BUILD_NUMBER'
 	           script{
 	               kubernetes.apply("YAML.yml")
 	               kubernetes.get("deployment")
