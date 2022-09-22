@@ -11,6 +11,7 @@ pipeline{
   	}
 	
 	stages{
+	
 	    stage('Fetch code from GitHub'){
 	  	agent {
 	   	   label 'agent-1'
@@ -26,18 +27,18 @@ pipeline{
 	    	agent {
 	      	   label 'agent-1'
 	      	}
-		steps{
-			script{
-				maven.mavenTest()
-				maven.mavenInstall()
-			}
-		}
-		post{
-			success{
-				archiveArtifacts 'target/*.war'
-				stash 'source'
-			}
-		}
+    		steps{
+    			script{
+    				maven.mavenTest()
+    				maven.mavenInstall()
+    			}
+    		}
+    		post{
+        	    success{
+           		archiveArtifacts 'target/*.war'
+           		stash 'source'
+    		    }
+            	}
 	    }
 	    
 	    stage('Code Quality Check'){
@@ -45,16 +46,14 @@ pipeline{
 		   label 'agent-1'
 		}
 		steps{
-	    	    withSonarQubeEnv(installationName: 'sonarqube-7.1'){
-			 sh 'mvn sonar:sonar \
-			 -Dsonar.projectKey=spring	 \
-			 -Dsonar.projectName=spring \
-			 -Dsonar.host.url=http://20.244.33.251:9000 \
-			 -Dsonar.login=9fe0b448d589e6dde9f405e50ed8448f012f09f5'
+	    	 withSonarQubeEnv(installationName: 'sonarqube-7.1'){
+    			 script{
+    			     sonarQube.sonarAnalysis('spring','spring','http://20.244.33.251:9000','9fe0b448d589e6dde9f405e50ed8448f012f09f5')
+    			 }
 		    }   
 		}
 	    }
-	    
+
 	    
 	    /*stage('Custom Quality Gate Check'){
 	        agent{
@@ -66,6 +65,16 @@ pipeline{
 	    }*/
 	    
  
-	    
+	    stage('Publish to JFrog'){
+	        agent{
+	            label 'agent-1'
+	        }
+	        steps{
+	            script{
+    	            jfrog.jfPing('http://20.244.50.64:8082/artifactory/')
+    	            jfrog.jfUpload('http://20.244.50.64:8082/artifactory/','${ARTIFACTORY_ACCESS_TOKEN}','target/spring-boot-thymeleaf-2.0.0.war','Spring-Boot-Thymeleaf/')
+	            }           
+	        }
+	    } 
 	}
 }
