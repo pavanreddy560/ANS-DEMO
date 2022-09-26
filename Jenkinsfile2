@@ -78,13 +78,17 @@ pipeline{
 	    } 
 	    
 	    stage('Tomcat deploy'){
-		agent {
-		   label 'agent-1'
-		}
-		steps{
-		   ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
-		}
-	     }
+    		agent {
+    		   label 'agent-1'
+    		}
+    		steps{
+    		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
+			script{
+			    ansible.ping("~/.ssh/ansible-keys","all")
+			    ansible.playbook_execution("~/.ssh/ansible-keys","playbook.yml")
+			}
+    		}
+    	}  
 	    
 	    stage('Docker Stage'){
 	       agent{
@@ -119,6 +123,8 @@ pipeline{
 		      }*/
 	       }
 	   }
+	   
+	   
 	}
 	post{	
 	    always{
