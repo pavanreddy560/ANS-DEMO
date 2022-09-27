@@ -59,16 +59,16 @@ pipeline{
 		}
 	    }   
 	    
-	    /*stage('Custom Quality Gate Check'){
+	    stage('Custom Quality Gate Check'){
 	        agent{
 	            label 'agent-1'
 	        }
 	        steps{
 	            waitForQualityGate abortPipeline: true
 	        }
-	    }*/
+	    }
         
-	    stage('Publish to JFrog'){
+	    /*stage('Publish to JFrog'){
 	       agent {
 		      label 'agent-1'
 	       }
@@ -98,8 +98,8 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
-		    /*sh 'kubectl delete deployment myapp-deployment'
-	            sh 'kubectl delete service myapp-service'*/
+		    //sh 'kubectl delete deployment myapp-deployment'
+	            //sh 'kubectl delete service myapp-service'
 	            sh 'echo $BUILD_NUMBER'
 	            sh 'chmod +x changeTag.sh'
 	            sh './changeTag.sh V.$BUILD_NUMBER'
@@ -111,9 +111,9 @@ pipeline{
 			     configs: 'YAML.yml',
 			     kubeconfigId: 'K8S' 
 			)
-		    }*/
+		    }
 	        }
-	    }
+	    }*/
 		
 	    stage('Tomcat deploy'){
 		agent {
@@ -125,9 +125,9 @@ pipeline{
 	     }
 	    }
 	
-	post{	
+	/*post{	
 	    always{
 	        sh 'docker logout'
 	    }
-	}
+	}*/
 }
