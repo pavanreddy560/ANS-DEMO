@@ -53,6 +53,16 @@ pipeline{
 		    }   
 		}
 	    }
+	    
+	    
+	    stage('Custom Quality Gate Check'){
+	        agent{
+	            label 'agent-1'
+	        }
+	        steps{
+	            waitForQualityGate abortPipeline: true
+	        }
+	    }
 
 
 	    stage('Publish to JFrog'){
@@ -72,7 +82,6 @@ pipeline{
     		   label 'agent-1'
     		}
     		steps{
-    		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 			script{
 			    ansible.ping("~/.ssh/ansible-keys","all")
 			    ansible.playbook_execution("~/.ssh/ansible-keys","playbook.yml")
@@ -105,12 +114,17 @@ pipeline{
 	               kubernetes.get("deployment")
 	               kubernetes.get("svc")
 	           }
-	            /*script{
+		   
+		   
+	            /*
+		      script{
 		            kubernetesDeploy(
 			            configs: 'YAML.yml',
 			            kubeconfigId: 'K8S' 
 			    )
-		      }*/
+		      }
+		    */
+		
 	       }
 	   }
 	   
