@@ -68,7 +68,7 @@ pipeline{
 	        }
 	    }
         
-	    /*stage('Publish to JFrog'){
+	    stage('Publish to JFrog'){
 	       agent {
 		      label 'agent-1'
 	       }
@@ -86,8 +86,6 @@ pipeline{
  	            sh ' docker build -t bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER .'
  	            sh ' echo $DOCKER_ACCESS_TOKEN_PSW | docker login --username $DOCKER_ACCESS_TOKEN_USR --password-stdin'
  	            sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER'
-		    //sh ' docker tag bharadwajayinapurapu/spring-boot-thymeleaf:V.$BUILD_NUMBER bharadwajayinapurapu/spring-boot-thymeleaf:latest'
- 	            //sh ' docker push bharadwajayinapurapu/spring-boot-thymeleaf:latest'
  	        }
  	        
  	    }
@@ -111,9 +109,9 @@ pipeline{
 			     configs: 'YAML.yml',
 			     kubeconfigId: 'K8S' 
 			)
-		    }
+		    }*/
 	        }
-	    }*/
+	    }
 		
 	    stage('Tomcat deploy'){
 		agent {
@@ -122,12 +120,12 @@ pipeline{
 		steps{
 		   ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 		}
-	     }
 	    }
+	}
 	
-	/*post{	
+	post{	
 	    always{
 	        sh 'docker logout'
 	    }
-	}*/
+	}
 }
