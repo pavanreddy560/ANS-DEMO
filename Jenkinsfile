@@ -59,14 +59,14 @@ pipeline{
 		}
 	    }   
 	    
-	    /*stage('Custom Quality Gate Check'){
+	    stage('Custom Quality Gate Check'){
 	        agent{
 	            label 'agent-1'
 	        }
 	        steps{
 	            waitForQualityGate abortPipeline: true
 	        }
-	    }*/
+	    }
         
 	    stage('Publish to JFrog'){
 	       agent {
