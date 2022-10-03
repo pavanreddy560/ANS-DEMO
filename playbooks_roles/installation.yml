@@ -3,4 +3,4 @@
   hosts: webservers
   become: true
   roles:
-    - tomcat_install
+    - role: 'roles/tomcat_install'
