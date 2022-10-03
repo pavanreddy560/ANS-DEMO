@@ -2,5 +2,5 @@
   hosts: webservers
   become: true
   roles:
-    - tomcat_deploy
+    - role: 'roles/tomcat_deploy'
 
