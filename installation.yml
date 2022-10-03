@@ -8,8 +8,9 @@
   #  tomcat_package: "apache-tomcat-9.0.67"
   #vars_files:
   #- variables.yml
+  
   tasks:
-  - include_vars: variable.yml
+  - include_vars: variables.yml
   - name: Install Java
     apt:
       name: openjdk-11-jdk
