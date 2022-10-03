@@ -5,10 +5,11 @@
   become_user: root
   #vars:
   #  tomcat_package: "apache-tomcat-9.0.67"
-  vars_files:
-  - variables.yml
+  #vars_files:
+  #- variables.yml
  
   tasks:
+  - include_vars: variables.yml
   - name: Stopping tomcat server
     shell: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh &
     become: true
