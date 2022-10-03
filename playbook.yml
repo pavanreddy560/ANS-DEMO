@@ -8,15 +8,15 @@
  
   tasks:
   - name: Stopping tomcat server
-    shell: nohup /usr/local/"{{ tomcat_package }}"/bin/shutdown.sh &
+    shell: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh &
     become: true
   
 
   - name: Copying the war file to tomcat server location
     copy:
       src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/spring-boot-thymeleaf-2.0.0.war 
-      dest: /usr/local/"{{ tomcat_package }}"/webapps
+      dest: /usr/local/{{ tomcat_package }}/webapps
       
   - name: Starting tomcat server
-    shell: nohup /usr/local/"{{ tomcat_package }}"/bin/startup.sh &
+    shell: nohup /usr/local/{{ tomcat_package }}/bin/startup.sh &
     become: true
