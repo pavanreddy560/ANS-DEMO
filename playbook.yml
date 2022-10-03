@@ -3,8 +3,10 @@
   hosts: all
   become: true
   become_user: root
-  vars:
-    tomcat_package: "apache-tomcat-9.0.67"
+  #vars:
+  #  tomcat_package: "apache-tomcat-9.0.67"
+  vars_files:
+  - variables.yml
  
   tasks:
   - name: Stopping tomcat server
