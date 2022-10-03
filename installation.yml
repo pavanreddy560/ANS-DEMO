@@ -6,9 +6,10 @@
   #vars:
   #  tomcat_url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz"
   #  tomcat_package: "apache-tomcat-9.0.67"
-  vars_files:
-  - variables.yml
+  #vars_files:
+  #- variables.yml
   tasks:
+  - include_vars: variable.yml
   - name: Install Java
     apt:
       name: openjdk-11-jdk
