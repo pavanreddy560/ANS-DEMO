@@ -20,6 +20,6 @@
       
   - name: Unarchive tomcat package
     unarchive:
-      src: /usr/local/"{{ tomcat_package }}".tar.gz
+      src: /usr/local/{{ tomcat_package }}.tar.gz
       dest: /usr/local
       remote_src: yes
