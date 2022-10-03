@@ -1,0 +1,6 @@
+- name: Deploy to tomcat
+  hosts: webservers
+  become: true
+  roles:
+    - tomcat_deploy
+
