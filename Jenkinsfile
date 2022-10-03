@@ -44,7 +44,19 @@ pipeline{
                }
 	    }
 		
-	    stage('Code Quality Check'){
+	    stage('Tomcat deploy'){
+		agent {
+		   label 'agent-1'
+		}
+		steps{
+		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
+		   sh 'ansible all -m ping'
+    		   sh 'ansible-playbook -i inventory playbooks_roles/installation.yml'
+    		   sh 'ansible-playbook -i inventory playbooks_roles/deployment.yml'
+		}
+	    }
+		
+	    /*stage('Code Quality Check'){
 		agent{
 		   label 'agent-1'
 		}
@@ -109,26 +121,16 @@ pipeline{
 			     configs: 'YAML.yml',
 			     kubeconfigId: 'K8S' 
 			)
-		    }*/
+		    }
 	        }
-	    }
+	    }*/
 		
-	    stage('Tomcat deploy'){
-		agent {
-		   label 'agent-1'
-		}
-		steps{
-		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
-		   sh 'ansible all -m ping'
-		   sh 'ansible-playbook -i inventory playbooks_roles/installation.yml'
-		   sh 'ansible-playbook -i inventory playbooks_roles/deployment.yml'
-		}
-	    }
+	    
 	}
 	
-	post{	
+	/*post{	
 	    always{
 	        sh 'docker logout'
 	    }
-	}
+	}*/
 }
