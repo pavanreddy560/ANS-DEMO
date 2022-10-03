@@ -1,0 +1,9 @@
+- name: Deploy to Tomcat server
+  copy: 
+    src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/spring-boot-thymeleaf-2.0.0.war
+    dest: /usr/local/apache-tomcat-9.0.67/webapps
+
+- name: Starting tomcat service
+  shell:
+    cmd: nohup /usr/local/apache-tomcat-9.0.67/bin/atartup.sh &
+    
