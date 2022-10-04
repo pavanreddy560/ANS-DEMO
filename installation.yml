@@ -38,7 +38,7 @@
   - name: Run if its the required version
     debug:
       msg: "Right version has been installed {{ output.stdout }}
-    when: output.stdout == "9.0.67.0"
+    when: output.stdout == "{{ tomcat_version }}.0"
     register: VersionOP
    
   - name: Run if its not the right version
