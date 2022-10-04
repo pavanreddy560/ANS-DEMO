@@ -1,2 +1,3 @@
 tomcat_url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz
 tomcat_package: apache-tomcat-9.0.67
+tomcat_version: 9.0.67
