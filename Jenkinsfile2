@@ -96,7 +96,7 @@ pipeline{
     		}
     	}  
 	    
-	    stage('Docker Stage'){
+	 /*stage('Docker Stage'){
 	       agent{
 	           label 'agent-1'
 	       }
@@ -130,10 +130,10 @@ pipeline{
 			            kubeconfigId: 'K8S' 
 			    )
 		      }
-		    */
+		    
 		
 	       }
-	   }
+	   }*/
 	   
 	   
 	}
