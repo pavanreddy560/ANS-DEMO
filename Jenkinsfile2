@@ -41,7 +41,7 @@ pipeline{
             	}
 	    }
 	    
-	    /*stage('Code Quality Check'){
+	    stage('Code Quality Check'){
 		agent{
 		   label 'agent-1'
 		}
@@ -75,7 +75,7 @@ pipeline{
     	            jfrog.jfUpload('http://20.244.50.64:8082/artifactory/','${ARTIFACTORY_ACCESS_TOKEN}','target/spring-boot-thymeleaf-2.0.0.war','Spring-Boot-Thymeleaf/')
 	            }           
 	        }
-	    } */
+	    }
 	    
 	    stage('Tomcat deploy'){
     		agent {
@@ -96,7 +96,7 @@ pipeline{
     		}
     	}  
 	    
-	 /*stage('Docker Stage'){
+	 stage('Docker Stage'){
 	       agent{
 	           label 'agent-1'
 	       }
@@ -130,10 +130,9 @@ pipeline{
 			            kubeconfigId: 'K8S' 
 			    )
 		      }
-		    
-		
+		    */
 	       }
-	   }*/
+	   }
 	   
 	   
 	}
