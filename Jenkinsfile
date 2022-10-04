@@ -44,23 +44,7 @@ pipeline{
                }
 	    }
 		
-	    stage('Tomcat deploy'){
-		agent {
-		   label 'agent-1'
-		}
-		steps{
-		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
-		   sh 'ansible all -m ping'
-    		   sh 'ansible-playbook playbooks_roles/installation.yml'
-    		   sh 'ansible-playbook playbooks_roles/deployment.yml'
-			
-		   sh 'ansible all -m ping'
-	           sh 'ansible-playbook installation.yml'
-        	   sh 'ansible-playbook playbook.yml'
-		}
-	    }
-		
-	    /*stage('Code Quality Check'){
+	    stage('Code Quality Check'){
 		agent{
 		   label 'agent-1'
 		}
@@ -93,7 +77,24 @@ pipeline{
  		   sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
  	       }	
  	    }
+	    
 		
+   	    stage('Tomcat deploy'){
+		agent {
+		   label 'agent-1'
+		}
+		steps{
+		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
+		   sh 'ansible all -m ping'
+    		   sh 'ansible-playbook playbooks_roles/installation.yml'
+    		   sh 'ansible-playbook playbooks_roles/deployment.yml'
+			
+		   sh 'ansible all -m ping'
+	           sh 'ansible-playbook installation.yml'
+        	   sh 'ansible-playbook playbook.yml'
+		}
+	    }		
+
             stage('Docker Stage'){
  	        agent {
 		      label 'agent-1'
@@ -125,16 +126,16 @@ pipeline{
 			     configs: 'YAML.yml',
 			     kubeconfigId: 'K8S' 
 			)
-		    }
+		    }*/
 	        }
-	    }*/
+	    }
 		
 	    
 	}
 	
-	/*post{	
+	post{	
 	    always{
 	        sh 'docker logout'
 	    }
-	}*/
+	}
 }
