@@ -51,8 +51,12 @@ pipeline{
 		steps{
 		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 		   sh 'ansible all -m ping'
-    		   //sh 'ansible-playbook playbooks_roles/installation.yml'
+    		   sh 'ansible-playbook playbooks_roles/installation.yml'
     		   sh 'ansible-playbook playbooks_roles/deployment.yml'
+			
+		   sh 'ansible all -m ping'
+	           sh 'ansible-playbook installation.yml'
+        	   sh 'ansible-playbook playbook.yml'
 		}
 	    }
 		
