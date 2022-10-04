@@ -6,11 +6,14 @@
   #vars:
   #  tomcat_url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz"
   #  tomcat_package: "apache-tomcat-9.0.67"
+  #  tomcat_version: "9.0.67"
+  
   #vars_files:
   #- variables.yml
   
   tasks:
   - include_vars: variables.yml
+  
   - name: Install Java
     apt:
       name: openjdk-11-jdk
@@ -23,6 +26,24 @@
       
   - name: Unarchive tomcat package
     unarchive:
-      src: /usr/local/{{ tomcat_package }}.tar.gz
+      src: /usr/local/apache-tomcat-{{ tomcat_version }}.tar.gz
       dest: /usr/local
       remote_src: yes
+      
+  - name: Checking if right version is installed
+    shell:
+      cmd: ./../../usr/local/apache-tomcat-9.0.67/bin/version.sh | grep "Server number" | awk {'print $3'}
+    register: output
+    
+  - name: Run if its the required version
+    debug:
+      msg: "Right version has been installed {{ output.stdout }}
+    when: output.stdout == "9.0.67.0"
+    register: VersionOP
+   
+  - name: Run if its not the right version
+    debug: 
+      msg: "Its not the required version"
+    when: VersionOP is skipped
+    
+  
