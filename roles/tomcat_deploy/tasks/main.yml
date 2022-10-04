@@ -5,5 +5,5 @@
 
 - name: Starting tomcat service
   shell:
-    cmd: nohup /usr/local/apache-tomcat-9.0.67/bin/atartup.sh &
+    cmd: nohup /usr/local/apache-tomcat-9.0.67/bin/startup.sh &
     
