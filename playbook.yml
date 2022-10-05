@@ -1,3 +1,5 @@
+# Playbook for deleting the existing package and deploying the fresh build
+
 ---
 - name: Playbook for Tomcat Ansible deploy
   hosts: all
@@ -10,16 +12,23 @@
  
   tasks:
   - include_vars: variables.yml
-  - name: Stopping tomcat server
-    shell: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh &
-    become: true
   
-
+  - name: Checking if the package is present
+    stat:
+      path: /usr/local/{{ tomcat_package }}/webapps/{{ war_package }}
+    register: result
+  
+  - name: Deleting the build if it exists
+    file:
+      path: /usr/local/{{ tomcat_package }}/webapps/{{ war_package }}
+      state: absent
+    when: result.stat.exists
+    
   - name: Copying the war file to tomcat server location
     copy:
-      src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/spring-boot-thymeleaf-2.0.0.war 
+      src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/{{ war_package }}
       dest: /usr/local/{{ tomcat_package }}/webapps
       
-  - name: Starting tomcat server
-    shell: nohup /usr/local/{{ tomcat_package }}/bin/startup.sh &
-    become: true
+  - name: Restarting tomcat server
+    shell: 
+      cmd: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh & nohup /usr/local/{{ tomcat_package }}/bin/startup.sh
