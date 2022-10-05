@@ -86,7 +86,8 @@ pipeline{
 			
 			    ansible.ping("~/.ssh/ansible-keys","all")
 			    ansible.playbook_execution("~/.ssh/ansible-keys","installation.yml")
-			    ansible.playbook_execution("~/.ssh/ansible-keys","playbook.yml")
+			    //ansible.playbook_execution("~/.ssh/ansible-keys","playbook.yml")
+			    ansible.playbook_execution("~/.ssh/ansible-keys","deployment.yml")
 			    
 			    ansible.ping("~/.ssh/ansible-keys","all")
 			    ansible.playbook_execution("~/.ssh/ansible-keys","playbooks_roles/installation.yml")
