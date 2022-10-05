@@ -1,0 +1,22 @@
+# Deploying to Tomcat server using Handlers
+
+---
+- name: Deploy to Tomcat using Handlers
+  hosts: all
+  become: true
+  
+  tasks:
+    - include_vars: variables.yml
+    
+    - name: Copy .war file to tomcat server
+      copy:
+        src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/{{ war_package }}
+        dest: /usr/local/{{ tomcat_package }}/webapps
+      notify: 
+        - Restart tomcat server
+        
+        
+  handlers:
+    - name: Restart tomcat server
+      shell:
+        cmd: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh & nohup /usr/local/{{ tomcat_package }}/bin/startup.sh
