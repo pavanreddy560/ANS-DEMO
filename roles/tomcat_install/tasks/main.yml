@@ -5,11 +5,11 @@
   
 - name: Install Tomcat
   get_url:
-      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz
+      url: (( tomcat_url }}
       dest: /usr/local
 
 - name: Unarchive Tomcat Package
   unarchive:
-      src: /usr/local/apache-tomcat-9.0.67.tar.gz
+      src: /usr/local/{{ tomcat_package }}
       dest: /usr/local
       remote_src: yes
