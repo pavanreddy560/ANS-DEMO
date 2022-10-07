@@ -23,6 +23,8 @@ pipeline{
 	      	   label 'agent-1'
 	      	}
 	  	steps{
+		   sh 'chmod +x changeVersion.sh'
+                   sh './changeVersion.sh VERSION_TO_BE_CHANGED $BUILD_NUMBER pom.xml'  	
 		   sh 'mvn clean test'
 	  	}
 	    }
@@ -85,7 +87,10 @@ pipeline{
 		}
 		steps{
 		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
-		
+		       
+			sh 'chmod +x changeVersion.sh'
+	                sh './changeVersion.sh VERSION_NUMBER $BUILD_NUMBER deployment.yml' 
+			
     		   	sh 'ansible all -m ping'
     	       		//sh 'ansible-playbook installation.yml'
                		//sh 'ansible-playbook playbook.yml'
