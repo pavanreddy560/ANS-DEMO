@@ -4,7 +4,7 @@
 
     <groupId>pl.codeleak.demos.sbt</groupId>
     <artifactId>spring-boot-thymeleaf</artifactId>
-    <version>2.0.0</version>
+    <version>VERSION_TO_BE_CHANGED</version>
     <name>spring-boot-thymeleaf</name>
     <packaging>war</packaging>
 
