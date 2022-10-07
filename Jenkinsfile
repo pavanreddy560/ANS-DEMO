@@ -77,6 +77,7 @@ pipeline{
  	       steps{
  		   sh 'jf rt ping --url http://20.244.50.64:8082/artifactory/'
  		   sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-2.0.0.war Spring-Boot-Thymeleaf/'
+		   //sh 'jf rt u --url http://20.244.50.64:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/spring-boot-thymeleaf-$BUILD_NUMBER.war Spring-Boot-Thymeleaf/'    
  	       }	
  	    }
 	    
