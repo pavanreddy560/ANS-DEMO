@@ -88,8 +88,8 @@ pipeline{
 		steps{
 		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
 		       
-			sh 'chmod +x changeVersion.sh'
-	                sh './changeVersion.sh VERSION_NUMBER $BUILD_NUMBER deployment.yml' 
+// 			sh 'chmod +x changeVersion.sh'
+// 	                sh './changeVersion.sh VERSION_NUMBER $BUILD_NUMBER deployment.yml' 
 			
     		   	sh 'ansible all -m ping'
     	       		//sh 'ansible-playbook installation.yml'
