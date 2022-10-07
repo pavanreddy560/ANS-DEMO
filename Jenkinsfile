@@ -23,8 +23,8 @@ pipeline{
 	      	   label 'agent-1'
 	      	}
 	  	steps{
-		   sh 'chmod +x changeVersion.sh'
-                   sh './changeVersion.sh VERSION_TO_BE_CHANGED $BUILD_NUMBER pom.xml'  	
+		   //sh 'chmod +x changeVersion.sh'
+                   //sh './changeVersion.sh VERSION_TO_BE_CHANGED $BUILD_NUMBER pom.xml'  	
 		   sh 'mvn clean test'
 	  	}
 	    }
