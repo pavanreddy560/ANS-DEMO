@@ -39,8 +39,6 @@ pipeline{
     	  	post{
         	    success{
            		archiveArtifacts 'target/*.war'
-           		sh 'java -version'
-           		sh 'mvn -version'
            		stash 'source'
     		    }
                }
@@ -87,15 +85,12 @@ pipeline{
 		   label 'agent-1'
 		}
 		steps{
-		   //ansiblePlaybook becomeUser: 'bd', credentialsId: 'SSH-Private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'playbook.yml'
-		       
-// 			sh 'chmod +x changeVersion.sh'
-// 	                sh './changeVersion.sh VERSION_NUMBER $BUILD_NUMBER deployment.yml' 
-			
-    		   	sh 'ansible all -m ping'
-    	       		//sh 'ansible-playbook installation.yml'
-               		//sh 'ansible-playbook playbook.yml'
-               		sh 'ansible-playbook deployment.yml'
+		    //sh 'chmod +x changeVersion.sh'
+		    //sh './changeVersion.sh VERSION_NUMBER $BUILD_NUMBER deployment.yml' 
+
+		    sh 'ansible all -m ping'
+		    //sh 'ansible-playbook installation.yml'
+		    sh 'ansible-playbook deployment.yml'
 		}
 	    }		
 
@@ -117,9 +112,6 @@ pipeline{
 	    	}
 	        steps{
 		    unstash 'source'
-		    //sh 'kubectl delete deployment myapp-deployment'
-	            //sh 'kubectl delete service myapp-service'
-	            sh 'echo $BUILD_NUMBER'
 	            sh 'chmod +x changeTag.sh'
 	            sh './changeTag.sh V.$BUILD_NUMBER'
 		    sh 'kubectl apply -f YAML.yml'
