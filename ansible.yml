@@ -9,7 +9,7 @@
       group_id: pl.codeleak.demos.sbt
       artifact_id: spring-boot-thymeleaf
       extension: war
-      repository_url: 'http://13.232.127.233:8081/repository/simpleapp/'
+      repository_url: 'http://13.232.127.233:8081/repository/Webapp/'
       version: 2.0.0
       username: admin
       password: admin123
