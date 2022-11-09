@@ -6,8 +6,8 @@
   tasks:
    - name: Download an artifact from Nexus repository and deploy to tomcat server
      maven_artifact:
-      group_id: com.tcs.angularjs
-      artifact_id: springbootApp
+      group_id: pl.codeleak.demos.sbt
+      artifact_id: spring-boot-thymeleaf
       extension: war
       repository_url: 'http://13.232.127.233:8081/repository/simpleapp/'
       version: 2.0.0
