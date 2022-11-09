@@ -1,6 +1,0 @@
-- name: Deploy to Tomcat server
-  copy: 
-    src: /home/bd/agent-1/workspace/Spring-Boot-Thymeleaf/target/{{ war_package }}
-    dest: /usr/local/{{ tomcat_package }}/webapps
-  notify: Restart tomcat server
-    

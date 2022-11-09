@@ -1,9 +1,0 @@
----
-- name : Playbook to update the packages
-  become: true
-  become_user: root
-  hosts: all
-  tasks:
-    - name: Update packages
-      apt:
-        update_cache: true

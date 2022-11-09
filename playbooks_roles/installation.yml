@@ -1,6 +1,0 @@
----
-- name: Install tomcat
-  hosts: webservers
-  become: true
-  roles:
-    - role: 'roles/tomcat_install'

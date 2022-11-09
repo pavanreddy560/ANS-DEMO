@@ -1,6 +1,2 @@
-# Ex 1: Ungrouped hosts, specify before any group headers.
-# Ex 2: A collection of hosts belonging to the 'webservers' group
-# Ex 3: A collection of database servers in the 'dbservers' group
-
 [webservers]
-20.244.49.69
+52.66.211.132 ansible_user=ubuntu

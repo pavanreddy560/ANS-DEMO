@@ -1,3 +1,0 @@
-- name: Restart tomcat server
-  shell:
-    cmd: nohup /usr/local/{{ tomcat_package }}/bin/shutdown.sh & nohup /usr/local/{{ tomcat_package }}/bin/startup.sh
